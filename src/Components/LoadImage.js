@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Image, StyleSheet, Dimensions} from 'react-native';
 const MYWIDTH = Dimensions.get('window').width;
 const MYHEIGHT = Dimensions.get('window').height;
-const heighPercent = 0.4;
-const widthMargin = 1 / 100;
-const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / 500;
-const ratioHeight = (MYHEIGHT * heighPercent) / 500;
+const heighPercent = 0.5;
+const widthMargin = 0 / 100;
+const widthImage = 500
+const heightImage = 500
+const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / widthImage;
+const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
 let drawArr1 = [
   {
     height: 2.655,
