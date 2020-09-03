@@ -4,8 +4,8 @@ const MYWIDTH = Dimensions.get('window').width;
 const MYHEIGHT = Dimensions.get('window').height;
 const heighPercent = 0.5;
 const widthMargin = 0 / 100;
-const widthImage = 500
-const heightImage = 500
+const widthImage = 500;
+const heightImage = 500;
 const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / widthImage;
 const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
 let drawArr1 = [
@@ -961,10 +961,10 @@ let drawAcneArr = [
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
     marginHorizontal: MYWIDTH * widthMargin,
     // padding : 0,
     flex: 1,
+    position : 'relative',
     justifyContent: 'flex-start',
     // height: 400,
   },

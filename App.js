@@ -24,12 +24,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import LoadImage from './src/Components/LoadImage';
+import Result from './src/Components/Result';
 
 const App: () => React$Node = () => {
   return (
     <>
       <SafeAreaView>
-        <LoadImage />
+     
+      
+      <ScrollView style={{ position : "relative" , padding : 10 , height : '100%', paddingBottom :0 , backgroundColor : 'red'}}>
+      <View style={{ position : "relative" , paddingBottom : 40 }}>
+      <LoadImage/>
+        <Result/>
+        <Result/>
+        </View>
+         </ScrollView>
+        
       </SafeAreaView>
     </>
   );
