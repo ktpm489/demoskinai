@@ -47,40 +47,17 @@ class ResultScreen extends React.Component {
             </View>
             <View>
               <Text style={styles.txtExample}> Example of qualified image</Text>
-              <View
-                style={{
-                  width: '100%',
-                  height: height(60),
-                  marginTop: height(2),
-                  // backgroundColor: 'red',
-                }}>
-                <View
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    zIndex: 999,
-                  }}>
-                  <View
-                    style={{
-                      position: 'relative',
-                      height: height(40),
-                      width: width(85),
-                      top: height(10),
-                      left: width(7.5),
-                      borderWidth: width(0.5),
-                      borderRadius: height(20),
-                      borderColor: '#FF9DB8',
-                      transform: [{scaleY: 1.5}],
-                    }}></View>
+              <View style={styles.imageUploadContainer}>
+                <View style={styles.imageOvalContainer}>
+                  <View style={styles.imageOval} />
                 </View>
-
-                <Image
-                  source={images.skin}
-                  style={{width: '100%', height: '100%', resizeMode: 'cover'}}
-                />
+                <Image source={images.skin} style={styles.imageUpload} />
               </View>
             </View>
+
+            <TouchableOpacity>
+              <Text> {'Upload'}</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -137,5 +114,28 @@ const styles = StyleSheet.create({
     fontSize: width(4.5),
     color: 'pink',
   },
+  imageUploadContainer: {
+    width: '100%',
+    height: height(60),
+    marginTop: height(2),
+  },
+  imageOvalContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 999,
+  },
+  imageOval: {
+    position: 'relative',
+    height: height(40),
+    width: width(85),
+    top: height(10),
+    left: width(7.5),
+    borderWidth: width(0.5),
+    borderRadius: height(20),
+    borderColor: '#FF9DB8',
+    transform: [{scaleY: 1.5}],
+  },
+  imageUpload: {width: '100%', height: '100%', resizeMode: 'cover'},
 });
 export default ResultScreen;
