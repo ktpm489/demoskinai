@@ -24,11 +24,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import ResultScreen from './src/Pages/ResultScreen';
+import IntroScreen from './src/Pages/IntroScreen';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <ResultScreen />
+      <IntroScreen />
     </>
   );
 };
