@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Header from '../../Container/CoreHeader/index';
-import Button from '../../Components/Button'
+import Button from '../../Components/Button';
 import {width, height} from '../../Common/styles';
 import images from '../../Assets/Images';
 
@@ -45,8 +45,8 @@ class ResultScreen extends React.Component {
                 <Image source={images.skin} style={styles.imageUpload} />
               </View>
             </View>
-            <View style={{ width : '100%', marginTop : height(2) , alignItems :'center' }}>
-            <Button label={'Upload'}  style={{ backgroundColor : '#ff85a6' }}/>
+            <View style={styles.buttonContainer}>
+              <Button label={'Upload'} style={styles.buttonUpload} />
             </View>
           </View>
         </ScrollView>
@@ -127,5 +127,13 @@ const styles = StyleSheet.create({
     transform: [{scaleY: 1.5}],
   },
   imageUpload: {width: '100%', height: '100%', resizeMode: 'cover'},
+  buttonContainer: {
+    width: '100%',
+    marginTop: height(2),
+    alignItems: 'center',
+  },
+  buttonUpload: {
+    backgroundColor: '#ff85a6',
+  },
 });
 export default ResultScreen;
