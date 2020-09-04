@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingRight: width(5),
     alignItems: 'center',
+    backgroundColor: '#FF9DB8',
   },
   // main header
   mainHeaderContainer: {
@@ -134,6 +135,7 @@ const styles = StyleSheet.create({
 
   txtTitle: {
     textAlign: 'center',
+    color: 'white',
     fontSize: width(5.5),
     fontWeight: 'bold',
   },
@@ -174,6 +176,5 @@ const styles = StyleSheet.create({
     marginLeft: width(1),
   },
 });
-
 
 export default CoreHeader;

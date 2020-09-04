@@ -22,7 +22,7 @@ class ResultScreen extends React.Component {
             padding: 10,
             height: '90%',
             paddingBottom: 0,
-            backgroundColor: 'red',
+            backgroundColor: 'transparent',
           }}>
           <View style={{position: 'relative', paddingBottom: 40}}>
             <LoadImage />
