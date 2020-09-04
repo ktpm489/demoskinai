@@ -6,20 +6,11 @@ import {
   View,
   Text,
   Image,
-  Platform,
-  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 import Header from '../../Container/CoreHeader/index';
-import {
-  width,
-  heightScale,
-  topNavBarIOS,
-  heightNavBar,
-  isIphoneX,
-  height,
-  scale,
-} from '../../Common/styles';
+import Button from '../../Components/Button'
+import {width, height} from '../../Common/styles';
 import images from '../../Assets/Images';
 
 class ResultScreen extends React.Component {
@@ -54,10 +45,9 @@ class ResultScreen extends React.Component {
                 <Image source={images.skin} style={styles.imageUpload} />
               </View>
             </View>
-
-            <TouchableOpacity>
-              <Text> {'Upload'}</Text>
-            </TouchableOpacity>
+            <View style={{ width : '100%', marginTop : height(2) , alignItems :'center' }}>
+            <Button label={'Upload'}  style={{ backgroundColor : '#ff85a6' }}/>
+            </View>
           </View>
         </ScrollView>
       </View>
