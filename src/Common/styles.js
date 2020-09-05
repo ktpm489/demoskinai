@@ -1,4 +1,5 @@
 import {Dimensions, Text, Platform, PixelRatio} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 const CORE_RATIO = 667 / 375;
 const MYWIDTH = Dimensions.get('window').width;
 const MYHEIGHT = Dimensions.get('window').height;
@@ -17,14 +18,15 @@ export const verticalScale = (size) =>
 export const heightScale = (num) =>
   PixelRatio.roundToNearestPixel(MYHEIGHT * ((num * MYSCALE) / 100));
 export const isIphoneX = Platform.OS === 'ios' && MYHEIGHT >= 812;
-
-export const isRapidEar = isIphoneX;
+export const isNotchAndroid =
+  Platform.OS === 'android' && DeviceInfo.hasNotch();
+export const isRapidEar = isIphoneX || isNotchAndroid;
 export const heightNavBar = heightScale(
-  Platform.OS === 'ios' ? (isIphoneX ? 13 : 12) : 14,
+  Platform.OS === 'ios' ? (isIphoneX ? 13 : 12) : isNotchAndroid ? 16 : 14,
 );
 export const heightFooter = height(11) - height(isIphoneX ? 2 : 2.5);
 export const topNavBarIOS = heightScale(
-  Platform.OS === 'ios' ? (isIphoneX ? 4 : 2) : 1.5,
+  Platform.OS === 'ios' ? (isIphoneX ? 4 : 2) : isNotchAndroid ? 5 : 1.5,
 );
 export const navBarFit = heightScale(5);
 
