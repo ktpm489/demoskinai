@@ -1,7 +1,15 @@
 'use strict';
 import React, {PureComponent} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Slider,
+  Image,
+} from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import images from '../../Assets/Images';
 import {
   width,
   height,
@@ -11,15 +19,49 @@ import {
 } from '../../Common/styles';
 
 export default class ExampleApp extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0,
+      type: RNCamera.Constants.Type.back,
+    };
+  }
+
+  change = (value) => {
+    this.setState({value: parseFloat(value)});
+  };
+
+  goBack = () => {};
+
+  changeType = () => {
+    const {type} = this.state;
+    if (type !== RNCamera.Constants.Type.back) {
+      this.setState({type: RNCamera.Constants.Type.back});
+    } else {
+      this.setState({type: RNCamera.Constants.Type.front});
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            width: '100%',
-            height: heightNavBar,
-            backgroundColor: 'red',
-          }}></View>
+        <View style={styles.subContain}>
+          <TouchableOpacity style={styles.centerItem} onPress={this.goBack}>
+            <Image source={images.icBack} style={styles.imgCamera} />
+          </TouchableOpacity>
+          <Slider
+            style={{width: width(40), height: height(5)}}
+            minimumTrackTintColor={'#ff85a6'}
+            thumbTintColor={'#ff85a6'}
+            step={0.03}
+            maximumValue={0.3}
+            onValueChange={this.change}
+            value={this.state.value}
+          />
+          <TouchableOpacity style={styles.centerItem} onPress={this.changeType}>
+            <Image source={images.icSync} style={styles.imgCamera} />
+          </TouchableOpacity>
+        </View>
         <View style={styles.imageOvalContainer}>
           <View
             style={
@@ -31,8 +73,9 @@ export default class ExampleApp extends PureComponent {
           ref={(ref) => {
             this.camera = ref;
           }}
+          zoom={this.state.value}
           style={styles.preview}
-          type={RNCamera.Constants.Type.back}
+          type={this.state.type}
           flashMode={RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
@@ -50,17 +93,11 @@ export default class ExampleApp extends PureComponent {
             console.log(barcodes);
           }}
         />
-        <View
-          style={{
-            flex: 0,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            height: height(13),
-          }}>
+        <View style={styles.cameraContainer}>
           <TouchableOpacity
             onPress={this.takePicture.bind(this)}
             style={styles.capture}>
-            <Text style={{fontSize: 14}}> SNAP </Text>
+            <Image source={images.icCamera1} style={styles.imgTakeCamera} />
           </TouchableOpacity>
         </View>
       </View>
@@ -80,7 +117,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: '#f1d9e0',
+  },
+  subContain: {
+    width: '100%',
+    height: heightNavBar,
+    backgroundColor: '#f1d9e0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    zIndex: 1000,
+    paddingTop: height(2),
   },
   preview: {
     flex: 1,
@@ -89,10 +136,10 @@ const styles = StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     borderRadius: 5,
-    padding: width(3),
-    paddingHorizontal: width(3),
+    paddingVertical: height(3),
+    paddingHorizontal: width(10),
     alignSelf: 'center',
     // margin: height(3),
   },
@@ -123,5 +170,28 @@ const styles = StyleSheet.create({
     borderRadius: height(25),
     borderColor: '#FF9DB8',
     transform: [{scaleY: 1.4}],
+  },
+  centerItem: {
+    alignItems: 'center',
+    width: width(14),
+    // backgroundColor: 'yellow',
+    paddingHorizontal: width(3),
+    paddingVertical: height(2),
+  },
+  imgCamera: {
+    height: width(5),
+    width: width(5),
+    resizeMode: 'contain',
+  },
+  imgTakeCamera: {
+    height: width(10),
+    width: width(10),
+    resizeMode: 'contain',
+  },
+  cameraContainer: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: height(13),
   },
 });
