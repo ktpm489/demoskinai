@@ -128,6 +128,17 @@ const styles = StyleSheet.create({
   },
   imageOval: {
     position: 'relative',
+    height: height(45),
+    width: width(85),
+    top: height(3),
+    left: width(7.5),
+    borderWidth: width(0.5),
+    borderRadius: height(20),
+    borderColor: '#FF9DB8',
+    transform: [{scaleY: 1.3}],
+  },
+  imageOvalX: {
+    position: 'relative',
     height: height(40),
     width: width(85),
     top: height(10),
