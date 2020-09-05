@@ -73,7 +73,6 @@ class ResultScreen extends React.Component {
                 <View style={styles.imageContainer}>
                   <Image source={images.icCamera} style={styles.imgCamera} />
                 </View>
-                <Text style={styles.txtTitle}> Camera</Text>
                 <Text style={styles.txtDes}> Take photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -82,7 +81,6 @@ class ResultScreen extends React.Component {
                 <View style={styles.imageContainer}>
                   <Image source={images.icFolder} style={styles.imgCamera} />
                 </View>
-                <Text style={styles.txtTitle}> From Files</Text>
                 <Text style={styles.txtDes}> Upload your face</Text>
               </TouchableOpacity>
             </View>
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
   },
   centerItem: {
     alignItems: 'center',
-    paddingVertical: height(2),
+    paddingVertical: height(1),
   },
   txtTitle: {
     fontWeight: 'bold',
@@ -167,10 +165,10 @@ const styles = StyleSheet.create({
     marginTop: height(1),
   },
   txtExample: {
-    marginTop: height(2),
+    marginTop: height(1),
     marginLeft: width(3),
     fontSize: width(4.5),
-    color: 'pink',
+    color: '#ff85a6',
   },
   imageUploadContainer: {
     width: '100%',
