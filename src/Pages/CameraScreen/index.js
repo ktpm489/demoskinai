@@ -31,7 +31,10 @@ export default class ExampleApp extends PureComponent {
     this.setState({value: parseFloat(value)});
   };
 
-  goBack = () => {};
+  goBack = () => {
+    const {goBackScreen} = this.props;
+    goBackScreen && goBackScreen();
+  };
 
   changeType = () => {
     const {type} = this.state;
@@ -44,9 +47,12 @@ export default class ExampleApp extends PureComponent {
 
   takePicture = async () => {
     if (this.camera) {
+      const {setChangeImage} = this.props;
       const options = {quality: 1, base64: true};
       const data = await this.camera.takePictureAsync(options);
-      console.log(data);
+      // console.log(data);
+      setChangeImage && setChangeImage(data);
+      this.goBack();
     }
   };
 
@@ -134,7 +140,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     borderRadius: 5,
     zIndex: 1001,
     paddingVertical: height(3),

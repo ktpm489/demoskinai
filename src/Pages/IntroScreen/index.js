@@ -12,6 +12,7 @@ import Button from '../../Components/Button';
 import {width, height, isIphoneX, isNotchAndroid} from '../../Common/styles';
 import images from '../../Assets/Images';
 import BaseServices from '../../Common/services';
+import CameraScreen from '../CameraScreen';
 
 class ResultScreen extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class ResultScreen extends React.Component {
       txtImageUrl: '',
       fileResponse: '',
       isChange: false,
+      currentPage: 0,
     };
   }
 
@@ -36,15 +38,38 @@ class ResultScreen extends React.Component {
     }
   };
 
+  onChangeCameraPage = () => {
+    this.setState({
+      txtImageUrl: '',
+      fileResponse: '',
+      currentPage: 1,
+    });
+  };
+
+  setChangeImage = (res) => {
+    this.setState({
+      txtImageUrl: res.uri,
+      fileResponse: res,
+    });
+  };
+
+  goBackScreen = () => {
+    this.setState({
+      currentPage: 0,
+    });
+  };
+
   render() {
-    const {txtImageUrl} = this.state;
-    return (
+    const {txtImageUrl, currentPage} = this.state;
+    return currentPage === 0 ? (
       <View>
         <Header title={'AI Skin Analysis'} />
         <ScrollView style={styles.container}>
           <View style={styles.subContainer}>
             <View style={styles.subContainer1}>
-              <TouchableOpacity style={styles.centerItem}>
+              <TouchableOpacity
+                style={styles.centerItem}
+                onPress={this.onChangeCameraPage}>
                 <View style={styles.imageContainer}>
                   <Image source={images.icCamera} style={styles.imgCamera} />
                 </View>
@@ -80,11 +105,20 @@ class ResultScreen extends React.Component {
               </View>
             </View>
             <View style={styles.buttonContainer}>
-              <Button label={'Upload'} style={styles.buttonUpload} />
+              <Button
+                label={'Upload'}
+                style={styles.buttonUpload}
+                disabled={true}
+              />
             </View>
           </View>
         </ScrollView>
       </View>
+    ) : (
+      <CameraScreen
+        setChangeImage={this.setChangeImage}
+        goBackScreen={this.goBackScreen}
+      />
     );
   }
 }
