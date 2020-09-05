@@ -25,6 +25,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import ResultScreen from './src/Pages/ResultScreen';
 import IntroScreen from './src/Pages/IntroScreen';
+import CameraAppScreen from './src/Pages/CameraScreen';
 
 const App: () => React$Node = () => {
   return (

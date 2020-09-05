@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -11,56 +12,14 @@ import Header from '../../Container/CoreHeader/index';
 import Button from '../../Components/Button';
 import {width, height} from '../../Common/styles';
 import images from '../../Assets/Images';
-import BaseServices from '../../Common/services';
+import CameraScreen from 'react-native-camera-demo';
 
 class ResultScreen extends React.Component {
-  onSelectPhoto = async () => {
-    // const resImage = await BaseServices.selectImagePicker(false);
-    const resImage = await BaseServices.selectImagePicker(false);
-    // console.log('resImage', resImage);
-    // if (resImage) {
-    //   this.setState({ txtImageUrl: resImage.link, fileResponse: resImage.response, isChange: true })
-    // }
-  };
-
   render() {
     return (
       <View>
         <Header title={'AI Skin Analysis'} />
-        <ScrollView style={styles.container}>
-          <View style={styles.subContainer}>
-            <View style={styles.subContainer1}>
-              <TouchableOpacity style={styles.centerItem}>
-                <View style={styles.imageContainer}>
-                  <Image source={images.icCamera} style={styles.imgCamera} />
-                </View>
-                <Text style={styles.txtTitle}> Camera</Text>
-                <Text style={styles.txtDes}> Take photo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.centerItem}
-                onPress={this.onSelectPhoto}>
-                <View style={styles.imageContainer}>
-                  <Image source={images.icFolder} style={styles.imgCamera} />
-                </View>
-                <Text style={styles.txtTitle}> From Files</Text>
-                <Text style={styles.txtDes}> Upload your face</Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text style={styles.txtExample}> Example of qualified image</Text>
-              <View style={styles.imageUploadContainer}>
-                <View style={styles.imageOvalContainer}>
-                  <View style={styles.imageOval} />
-                </View>
-                <Image source={images.skin} style={styles.imageUpload} />
-              </View>
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button label={'Upload'} style={styles.buttonUpload} />
-            </View>
-          </View>
-        </ScrollView>
+        <CameraScreen />
       </View>
     );
   }

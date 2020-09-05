@@ -78,7 +78,7 @@ const CoreHeader = (props) => {
 
 const styles = StyleSheet.create({
   detailHeaderContainer: {
-    zIndex: 9999999999,
+    // zIndex: 9999999999,
     width: width(100),
     justifyContent: 'space-between',
     paddingTop: isIphoneX ? topNavBarIOS : topNavBarIOS + height(1),
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   // main header
   mainHeaderContainer: {
-    zIndex: 9999999999,
+    // zIndex: 9999999999,
     width: width(100),
     justifyContent: 'space-between',
     // paddingTop: isIphoneX ? topNavBarIOS + height(0.5) : topNavBarIOS,

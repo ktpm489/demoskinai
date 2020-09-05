@@ -18,6 +18,14 @@ export const heightScale = (num) =>
   PixelRatio.roundToNearestPixel(MYHEIGHT * ((num * MYSCALE) / 100));
 export const isIphoneX = Platform.OS === 'ios' && MYHEIGHT >= 812;
 
+export const isRapidEar = isIphoneX;
+export const heightNavBar = heightScale(
+  Platform.OS === 'ios' ? (isIphoneX ? 13 : 12) : 14,
+);
+export const heightFooter = height(11) - height(isIphoneX ? 2 : 2.5);
+export const topNavBarIOS = heightScale(
+  Platform.OS === 'ios' ? (isIphoneX ? 4 : 2) : 1.5,
+);
 export const navBarFit = heightScale(5);
 
 export const setDefaultText = (customProps) => {
