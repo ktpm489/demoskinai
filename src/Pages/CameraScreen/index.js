@@ -23,7 +23,7 @@ export default class ExampleApp extends PureComponent {
     super(props);
     this.state = {
       value: 0,
-      type: RNCamera.Constants.Type.back,
+      type: RNCamera.Constants.Type.front,
     };
   }
 
@@ -48,9 +48,16 @@ export default class ExampleApp extends PureComponent {
   takePicture = async () => {
     if (this.camera) {
       const {setChangeImage} = this.props;
-      const options = {quality: 1, base64: true};
+      const {type} = this.state;
+      const options = {
+        quality: 1,
+        base64: true,
+        width: 640,
+        height: 640,
+        mirrorImage: type === RNCamera.Constants.Type.front,
+      };
       const data = await this.camera.takePictureAsync(options);
-      // console.log(data);
+      console.log(data.uri);
       setChangeImage && setChangeImage(data);
       this.goBack();
     }
@@ -90,6 +97,7 @@ export default class ExampleApp extends PureComponent {
           zoom={this.state.value}
           style={styles.preview}
           type={this.state.type}
+          captureAudio={false}
           flashMode={RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',

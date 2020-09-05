@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF9DB8',
     transform: [{scaleY: 1.49}],
   },
-  imageUpload: {width: '100%', height: '100%', resizeMode: 'cover'},
+  imageUpload: {width: '100%', height: '100%', resizeMode: 'stretch'},
   buttonContainer: {
     width: '100%',
     marginTop: height(2),
