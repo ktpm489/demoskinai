@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Header from '../../Container/CoreHeader/index';
 import Button from '../../Components/Button';
-import {width, height} from '../../Common/styles';
+import {width, height, isIphoneX, isNotchAndroid} from '../../Common/styles';
 import images from '../../Assets/Images';
 import BaseServices from '../../Common/services';
 
@@ -51,7 +51,13 @@ class ResultScreen extends React.Component {
               <Text style={styles.txtExample}> Example of qualified image</Text>
               <View style={styles.imageUploadContainer}>
                 <View style={styles.imageOvalContainer}>
-                  <View style={styles.imageOval} />
+                  <View
+                    style={
+                      isIphoneX || isNotchAndroid
+                        ? styles.imageOvalX
+                        : styles.imageOval
+                    }
+                  />
                 </View>
                 <Image source={images.skin} style={styles.imageUpload} />
               </View>
@@ -124,18 +130,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
+    // backgroundColor: 'red',
     zIndex: 999,
   },
   imageOval: {
     position: 'relative',
-    height: height(45),
+    height: height(46),
     width: width(85),
-    top: height(3),
+    top: height(6.7),
     left: width(7.5),
     borderWidth: width(0.5),
-    borderRadius: height(20),
+    borderRadius: height(23),
     borderColor: '#FF9DB8',
-    transform: [{scaleY: 1.3}],
+    transform: [{scaleY: 1.28}],
   },
   imageOvalX: {
     position: 'relative',
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     borderWidth: width(0.5),
     borderRadius: height(20),
     borderColor: '#FF9DB8',
-    transform: [{scaleY: 1.5}],
+    transform: [{scaleY: 1.49}],
   },
   imageUpload: {width: '100%', height: '100%', resizeMode: 'cover'},
   buttonContainer: {
