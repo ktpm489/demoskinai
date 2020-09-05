@@ -30,7 +30,7 @@ import CameraAppScreen from './src/Pages/CameraScreen';
 const App: () => React$Node = () => {
   return (
     <>
-      <CameraAppScreen />
+      <IntroScreen />
     </>
   );
 };

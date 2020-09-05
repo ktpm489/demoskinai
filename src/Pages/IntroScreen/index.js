@@ -14,16 +14,30 @@ import images from '../../Assets/Images';
 import BaseServices from '../../Common/services';
 
 class ResultScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      txtImageUrl: '',
+      fileResponse: '',
+      isChange: false,
+    };
+  }
+
   onSelectPhoto = async () => {
     // const resImage = await BaseServices.selectImagePicker(false);
     const resImage = await BaseServices.selectImagePicker(false);
     // console.log('resImage', resImage);
-    // if (resImage) {
-    //   this.setState({ txtImageUrl: resImage.link, fileResponse: resImage.response, isChange: true })
-    // }
+    if (resImage) {
+      this.setState({
+        txtImageUrl: resImage.link,
+        fileResponse: resImage.response,
+        isChange: true,
+      });
+    }
   };
 
   render() {
+    const {txtImageUrl} = this.state;
     return (
       <View>
         <Header title={'AI Skin Analysis'} />
@@ -59,7 +73,10 @@ class ResultScreen extends React.Component {
                     }
                   />
                 </View>
-                <Image source={images.skin} style={styles.imageUpload} />
+                <Image
+                  source={txtImageUrl !== '' ? {uri: txtImageUrl} : images.skin}
+                  style={styles.imageUpload}
+                />
               </View>
             </View>
             <View style={styles.buttonContainer}>

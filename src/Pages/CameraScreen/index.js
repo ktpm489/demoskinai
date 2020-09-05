@@ -42,6 +42,14 @@ export default class ExampleApp extends PureComponent {
     }
   };
 
+  takePicture = async () => {
+    if (this.camera) {
+      const options = {quality: 1, base64: true};
+      const data = await this.camera.takePictureAsync(options);
+      console.log(data);
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -94,23 +102,13 @@ export default class ExampleApp extends PureComponent {
           }}
         />
         <View style={styles.cameraContainer}>
-          <TouchableOpacity
-            onPress={this.takePicture.bind(this)}
-            style={styles.capture}>
+          <TouchableOpacity onPress={this.takePicture} style={styles.capture}>
             <Image source={images.icCamera1} style={styles.imgTakeCamera} />
           </TouchableOpacity>
         </View>
       </View>
     );
   }
-
-  takePicture = async () => {
-    if (this.camera) {
-      const options = {quality: 1, base64: true};
-      const data = await this.camera.takePictureAsync(options);
-      console.log(data);
-    }
-  };
 }
 
 const styles = StyleSheet.create({
@@ -136,8 +134,9 @@ const styles = StyleSheet.create({
   },
   capture: {
     flex: 0,
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
     borderRadius: 5,
+    zIndex: 1001,
     paddingVertical: height(3),
     paddingHorizontal: width(10),
     alignSelf: 'center',
@@ -190,6 +189,7 @@ const styles = StyleSheet.create({
   },
   cameraContainer: {
     flex: 0,
+    zIndex: 1001,
     flexDirection: 'row',
     justifyContent: 'center',
     height: height(13),
