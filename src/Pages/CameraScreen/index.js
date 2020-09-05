@@ -1,109 +1,73 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import Header from '../../Container/CoreHeader/index';
-import Button from '../../Components/Button';
-import {width, height} from '../../Common/styles';
-import images from '../../Assets/Images';
-import CameraScreen from 'react-native-camera-demo';
+'use strict';
+import React, {PureComponent} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {RNCamera} from 'react-native-camera';
 
-class ResultScreen extends React.Component {
+export default class ExampleApp extends PureComponent {
   render() {
     return (
-      <View>
-        <Header title={'AI Skin Analysis'} />
-        <CameraScreen />
+      <View style={styles.container}>
+        <RNCamera
+          ref={(ref) => {
+            this.camera = ref;
+          }}
+          style={styles.preview}
+          type={RNCamera.Constants.Type.back}
+          flashMode={RNCamera.Constants.FlashMode.off}
+          androidCameraPermissionOptions={{
+            title: 'Permission to use camera',
+            message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          androidRecordAudioPermissionOptions={{
+            title: 'Permission to use audio recording',
+            message: 'We need your permission to use your audio',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          onGoogleVisionBarcodesDetected={({barcodes}) => {
+            console.log(barcodes);
+          }}
+        />
+        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={this.takePicture.bind(this)}
+            style={styles.capture}>
+            <Text style={{fontSize: 14}}> SNAP </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
+
+  takePicture = async () => {
+    if (this.camera) {
+      const options = {quality: 0.5, base64: true};
+      const data = await this.camera.takePictureAsync(options);
+      console.log(data);
+    }
+  };
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    height: '90%',
-    paddingBottom: 10,
-    width: '100%',
-    backgroundColor: 'transparent',
-  },
-  subContainer: {position: 'relative', paddingBottom: 40},
-  subContainer1: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#FAFAFA',
-  },
-  imgCamera: {
-    height: width(5),
-    width: width(5),
-    resizeMode: 'contain',
-  },
-  imageContainer: {
-    padding: width(4),
-    borderRadius: width(10),
-    borderColor: 'transparent',
+    flex: 1,
+    flexDirection: 'column',
     backgroundColor: 'white',
-    borderWidth: width(0.5),
   },
-  centerItem: {
-    alignItems: 'center',
-    paddingVertical: height(2),
-  },
-  txtTitle: {
-    fontWeight: 'bold',
-    fontSize: width(4.5),
-    color: 'black',
-    marginTop: height(1),
-  },
-  txtDes: {
-    fontSize: width(3),
-    color: 'gray',
-    marginTop: height(1),
-  },
-  txtExample: {
-    marginTop: height(2),
-    marginLeft: width(3),
-    fontSize: width(4.5),
-    color: 'pink',
-  },
-  imageUploadContainer: {
-    width: '100%',
-    height: height(60),
-    marginTop: height(2),
-  },
-  imageOvalContainer: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    zIndex: 999,
-  },
-  imageOval: {
-    position: 'relative',
-    height: height(40),
-    width: width(85),
-    top: height(10),
-    left: width(7.5),
-    borderWidth: width(0.5),
-    borderRadius: height(20),
-    borderColor: '#FF9DB8',
-    transform: [{scaleY: 1.5}],
-  },
-  imageUpload: {width: '100%', height: '100%', resizeMode: 'cover'},
-  buttonContainer: {
-    width: '100%',
-    marginTop: height(2),
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  buttonUpload: {
-    backgroundColor: '#ff85a6',
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20,
   },
 });
-export default ResultScreen;
