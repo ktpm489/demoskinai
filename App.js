@@ -12,7 +12,10 @@ import SkinAI from './SkinAI';
 class App extends React.Component {
   render() {
     return (
-      <SkinAI linkserver="https://shrouded-brushlands-68077.herokuapp.com" />
+      <SkinAI
+        linkserver="https://shrouded-brushlands-68077.herokuapp.com"
+        exitPage={() => {}}
+      />
     );
   }
 }

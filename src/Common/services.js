@@ -5,8 +5,8 @@ export default class BaseServices {
   static async selectImagePicker(isOpenCamera) {
     return new Promise(async (resolve, reject) => {
       const options = {
-        title: '',
-        cancelButtonTitle: 'Close',
+        title: 'Choose photo to upload',
+        cancelButtonTitle: 'Cancel',
         takePhotoButtonTitle: '',
         chooseFromLibraryButtonTitle: 'Choose Library',
         noData: true,

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Slider,
+  Platform,
   Image,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
@@ -54,10 +55,13 @@ export default class ExampleApp extends PureComponent {
         base64: true,
         width: 640,
         height: 640,
-        mirrorImage: type === RNCamera.Constants.Type.front,
+        mirrorImage:
+          Platform.OS === 'android'
+            ? false
+            : type === RNCamera.Constants.Type.front,
       };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+      // console.log(data.uri);
       setChangeImage && setChangeImage(data);
       this.goBack();
     }
