@@ -13,11 +13,13 @@ import Header from '../../Container/CoreHeader/index';
 
 class ResultScreen extends React.Component {
   backAction = () => {
-    const {changePage} = this.props;
+    const {changePage, setTransferData} = this.props;
+    setTransferData && setTransferData(null);
     changePage && changePage(0);
   };
 
   render() {
+    // console.log('transferData', this.props.transferData);
     return (
       <View>
         <Header title={'AI Skin Analysis'} leftAction={this.backAction} />

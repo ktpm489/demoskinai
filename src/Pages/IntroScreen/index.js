@@ -74,11 +74,12 @@ class ResultScreen extends React.Component {
     // Alert.alert('Hello I am Simple Alert');
     try {
       this.setState({isLoading: true});
-      let email = 'ktpm489@gmail.com';
-      let apikey =
-        'NWY0N2FkMjg4ZjFiYmIwYWViZDBkNDdhXzU2Nzg5MTBfSG5mMlJRcDhMbkNuWWhBQw==';
-      let linkserver = 'https://shrouded-brushlands-68077.herokuapp.com';
+      // let email = 'ktpm489@gmail.com';
+      // let apikey =
+      //   'NWY0N2FkMjg4ZjFiYmIwYWViZDBkNDdhXzU2Nzg5MTBfSG5mMlJRcDhMbkNuWWhBQw==';
+      // let linkserver = 'https://shrouded-brushlands-68077.herokuapp.com';
       // let linkserver = 'http://192.168.1.7:3000';
+      const {email, apikey, linkserver} = this.props;
       const {txtImageUrl} = this.state;
       if (txtImageUrl) {
         let res = await BaseAPI.postUploadPhoto(
@@ -90,7 +91,8 @@ class ResultScreen extends React.Component {
         // let dataJSON = JSON.stringify(res);
         // console.log('data1', dataJSON, res.data);
         if (res) {
-          const {changePage} = this.props;
+          const {changePage, setTransferData} = this.props;
+          setTransferData && setTransferData(res.data);
           changePage && changePage(1);
         } else {
           Alert.alert('Please try again');
