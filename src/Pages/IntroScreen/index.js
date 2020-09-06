@@ -23,6 +23,8 @@ class ResultScreen extends React.Component {
       fileResponse: '',
       isChange: false,
       currentPage: 0,
+      isDisable: true,
+      isLoading: false,
     };
   }
 
@@ -118,7 +120,8 @@ class ResultScreen extends React.Component {
               <Button
                 label={'Upload'}
                 style={styles.buttonUpload}
-                disabled={true}
+                isDisable={this.state.isDisable}
+                isLoading={this.state.isLoading}
                 onPress={this.onUpload}
               />
             </View>
