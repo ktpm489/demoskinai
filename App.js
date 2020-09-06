@@ -27,12 +27,19 @@ import ResultScreen from './src/Pages/ResultScreen';
 import IntroScreen from './src/Pages/IntroScreen';
 import CameraAppScreen from './src/Pages/CameraScreen';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <IntroScreen />
-    </>
-  );
-};
+// const App: () => React$Node = () => {
+//   return (
+//     <>
+//       <ResultScreen />
+//     </>
+//   );
+// };
+
+class App extends React.Component {
+
+  render() {
+    return <ResultScreen />;
+  }
+}
 
 export default App;

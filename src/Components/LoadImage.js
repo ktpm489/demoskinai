@@ -1,5 +1,6 @@
-import React from 'react';
-import {View, Image, StyleSheet, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import {View, Image, StyleSheet, Dimensions, Switch, Text} from 'react-native';
+import {width, height} from '../Common/styles';
 const MYWIDTH = Dimensions.get('window').width;
 const MYHEIGHT = Dimensions.get('window').height;
 const heighPercent = 0.5;
@@ -8,206 +9,6 @@ const widthImage = 500;
 const heightImage = 500;
 const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / widthImage;
 const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
-let drawArr1 = [
-  {
-    height: 2.655,
-    left: 259.175,
-    top: 93.975,
-    width: 2.49,
-  },
-  {
-    height: 3.54,
-    left: 148.37,
-    top: 120.082504,
-    width: 3.1125,
-  },
-  {
-    height: 2.655,
-    left: 282.51874,
-    top: 260.7975,
-    width: 2.80125,
-  },
-  {
-    height: 3.0975,
-    left: 296.83624,
-    top: 254.60251,
-    width: 3.1125,
-  },
-  {
-    height: 2.655,
-    left: 172.025,
-    top: 105.479996,
-    width: 2.80125,
-  },
-  {
-    height: 3.0975,
-    left: 152.105,
-    top: 142.65,
-    width: 3.1125,
-  },
-  {
-    height: 3.0975,
-    left: 144.635,
-    top: 129.375,
-    width: 2.80125,
-  },
-  {
-    height: 2.2125,
-    left: 274.7375,
-    top: 251.94751,
-    width: 2.49,
-  },
-  {
-    height: 2.2125,
-    left: 268.20123,
-    top: 129.375,
-    width: 2.49,
-  },
-  {
-    height: 3.9825,
-    left: 145.56876,
-    top: 168.315,
-    width: 3.42375,
-  },
-  {
-    height: 3.54,
-    left: 296.21375,
-    top: 104.595,
-    width: 3.42375,
-  },
-  {
-    height: 2.655,
-    left: 165.48874,
-    top: 343.545,
-    width: 2.49,
-  },
-  {
-    height: 3.0975,
-    left: 186.965,
-    top: 305.49,
-    width: 2.80125,
-  },
-  {
-    height: 2.2125,
-    left: 167.35625,
-    top: 308.58752,
-    width: 1.8675,
-  },
-  {
-    height: 3.0975,
-    left: 313.955,
-    top: 105.037506,
-    width: 3.1125,
-  },
-  {
-    height: 2.655,
-    left: 177.93875,
-    top: 104.595,
-    width: 2.80125,
-  },
-  {
-    height: 3.0975,
-    left: 285.32,
-    top: 277.6125,
-    width: 3.1125,
-  },
-  {
-    height: 2.2125,
-    left: 172.95874,
-    top: 129.8175,
-    width: 2.17875,
-  },
-  {
-    height: 1.77,
-    left: 182.29625,
-    top: 278.94,
-    width: 2.17875,
-  },
-  {
-    height: 1.77,
-    left: 172.33624,
-    top: 155.925,
-    width: 2.17875,
-  },
-  {
-    height: 3.0975,
-    left: 222.4475,
-    top: 225.3975,
-    width: 2.80125,
-  },
-  {
-    height: 2.2125,
-    left: 252.63875,
-    top: 122.7375,
-    width: 2.49,
-  },
-  {
-    height: 3.9825,
-    left: 247.34749,
-    top: 72.2925,
-    width: 3.735,
-  },
-  {
-    height: 6.195,
-    left: 290.3,
-    top: 93.09,
-    width: 5.91375,
-  },
-  {
-    height: 4.425,
-    left: 122.8475,
-    top: 192.21,
-    width: 3.1125,
-  },
-  {
-    height: 2.655,
-    left: 197.23624,
-    top: 85.125,
-    width: 3.1125,
-  },
-  {
-    height: 2.2125,
-    left: 166.4225,
-    top: 148.4025,
-    width: 2.49,
-  },
-  {
-    height: 3.54,
-    left: 296.525,
-    top: 86.895004,
-    width: 3.735,
-  },
-  {
-    height: 2.655,
-    left: 301.505,
-    top: 291.33002,
-    width: 2.80125,
-  },
-  {
-    height: 2.655,
-    left: 280.02875,
-    top: 270.5325,
-    width: 2.49,
-  },
-  {
-    height: 3.0975,
-    left: 286.25372,
-    top: 164.775,
-    width: 2.80125,
-  },
-  {
-    height: 2.2125,
-    left: 192.5675,
-    top: 106.807495,
-    width: 2.80125,
-  },
-  {
-    height: 3.54,
-    left: 171.4025,
-    top: 284.25,
-    width: 3.42375,
-  },
-];
 
 let drawSpotArr = [
   {
@@ -959,32 +760,6 @@ let drawAcneArr = [
   },
 ];
 
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: MYWIDTH * widthMargin,
-    // padding : 0,
-    flex: 1,
-    position : 'relative',
-    justifyContent: 'flex-start',
-    // height: 400,
-  },
-  logo: {
-    width: '100%',
-    height: '100%',
-    // backgroundColor: 'red',
-    // resizeMode: 'stretch',
-    resizeMode: 'stretch',
-  },
-  imageContainer: {
-    width: '100%',
-    height: MYHEIGHT * heighPercent,
-  },
-  rectangle: {
-    borderWidth: 1,
-    position: 'absolute',
-  },
-});
-
 const renderData = (data, color = 'red') => {
   return data.map(function (item, i) {
     return (
@@ -1005,6 +780,22 @@ const renderData = (data, color = 'red') => {
 };
 
 const DisplayAnImage = () => {
+  // spot
+  const [isSpotEnabled, setSpotIsEnabled] = useState(false);
+  const toggleSpotSwitch = () =>
+    setSpotIsEnabled((previousState) => !previousState);
+  // mole
+  const [isMoleEnabled, setMoleIsEnabled] = useState(false);
+  const toggleMoleSwitch = () =>
+    setMoleIsEnabled((previousState) => !previousState);
+  // blackhead
+  const [isBlackEnabled, setBlackIsEnabled] = useState(false);
+  const toggleBlackSwitch = () =>
+    setBlackIsEnabled((previousState) => !previousState);
+  // ance
+  const [isAnceEnabled, setAnceIsEnabled] = useState(false);
+  const toggleAnceSwitch = () =>
+    setAnceIsEnabled((previousState) => !previousState);
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -1015,13 +806,90 @@ const DisplayAnImage = () => {
               'http://res.cloudinary.com/hobbg5cc2/image/upload/v1598702124/uploads/images/1598702122594.jpg',
           }}
         />
-        {renderData(drawSpotArr, 'orange')}
-        {renderData(drawMoleArr, 'red')}
-        {renderData(drawBlackHeadArr, 'pink')}
-        {renderData(drawAcneArr, 'green')}
+        {isSpotEnabled ? renderData(drawSpotArr, 'orange') : null}
+        {isMoleEnabled ? renderData(drawMoleArr, 'red') : null}
+        {isBlackEnabled ? renderData(drawBlackHeadArr, 'pink') : null}
+        {isAnceEnabled ? renderData(drawAcneArr, 'green') : null}
+      </View>
+      <View style={styles.viewContainer}>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Spot</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'orange'}}
+            onValueChange={toggleSpotSwitch}
+            value={isSpotEnabled}
+          />
+        </View>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Acne</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'green'}}
+            onValueChange={toggleAnceSwitch}
+            value={isAnceEnabled}
+          />
+        </View>
+      </View>
+      <View style={styles.viewContainer}>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Pimple</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'red'}}
+            onValueChange={toggleMoleSwitch}
+            value={isMoleEnabled}
+          />
+        </View>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Blackhead</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'pink'}}
+            onValueChange={toggleBlackSwitch}
+            value={isBlackEnabled}
+          />
+        </View>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textContainer: {
+    width: width(20),
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  viewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: width(80),
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    paddingTop: height(2),
+  },
+  container: {
+    marginHorizontal: MYWIDTH * widthMargin,
+    // padding : 0,
+    flex: 1,
+    position: 'relative',
+    justifyContent: 'flex-start',
+    // height: 400,
+  },
+  logo: {
+    width: '100%',
+    height: '100%',
+    // backgroundColor: 'red',
+    // resizeMode: 'stretch',
+    resizeMode: 'stretch',
+  },
+  imageContainer: {
+    width: '100%',
+    height: MYHEIGHT * heighPercent,
+  },
+  rectangle: {
+    borderWidth: 1,
+    position: 'absolute',
+  },
+});
 
 export default DisplayAnImage;
