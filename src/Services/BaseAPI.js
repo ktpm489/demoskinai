@@ -19,7 +19,6 @@ export default class BaseAPI {
 
   static async postUploadPhoto(uri, linkserver = '', email = '', apikey = '') {
     const promiseReturn = async () => {
-      console.log('eeee1.' + uri);
       return ImageResizer.createResizedImage(uri, 640, 640, 'JPEG', 100)
         .then((response) => {
           return RNFetchBlob.fs
@@ -30,14 +29,13 @@ export default class BaseAPI {
                 image_base64: base64,
                 email: email,
               };
-              let result = await this.postGateWay(
+              return this.postGateWay(
                 linkserver + '/api/userskin',
                 REQUEST_TYPE.POST,
                 body,
                 null,
                 apikey,
               );
-              return result;
             })
             .catch(() => {
               return '';
@@ -49,7 +47,7 @@ export default class BaseAPI {
         });
     };
     const responseImage = await promiseReturn();
-    console.log('responseImage' + responseImage);
+    // console.log('responseImage' + responseImage);
     return responseImage;
   }
 

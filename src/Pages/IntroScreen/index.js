@@ -78,16 +78,18 @@ class ResultScreen extends React.Component {
       let apikey =
         'NWY0N2FkMjg4ZjFiYmIwYWViZDBkNDdhXzU2Nzg5MTBfSG5mMlJRcDhMbkNuWWhBQw==';
       let linkserver = 'https://shrouded-brushlands-68077.herokuapp.com';
+      // let linkserver = 'http://192.168.1.7:3000';
       const {txtImageUrl} = this.state;
       if (txtImageUrl) {
-        let data = await BaseAPI.postUploadPhoto(
+        let res = await BaseAPI.postUploadPhoto(
           txtImageUrl,
           linkserver,
           email,
           apikey,
         );
-        // console.log('data1' + data);
-        if (data) {
+        // let dataJSON = JSON.stringify(res);
+        // console.log('data1', dataJSON, res.data);
+        if (res) {
           const {changePage} = this.props;
           changePage && changePage(1);
         } else {
@@ -98,6 +100,7 @@ class ResultScreen extends React.Component {
       // const {changePage} = this.props;
       // changePage && changePage(1);
     } catch (e) {
+      // console.log('e', e);
     } finally {
       this.setState({
         isLoading: false,
