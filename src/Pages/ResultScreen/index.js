@@ -12,10 +12,15 @@ import LoadImage from '../../Components/LoadImage';
 import Header from '../../Container/CoreHeader/index';
 
 class ResultScreen extends React.Component {
+  backAction = () => {
+    const {changePage} = this.props;
+    changePage && changePage(0);
+  };
+
   render() {
     return (
       <View>
-        <Header title={'AI Skin Analysis'} />
+        <Header title={'AI Skin Analysis'} leftAction={this.backAction} />
         <ScrollView
           style={{
             position: 'relative',

@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Header from '../../Container/CoreHeader/index';
 import Button from '../../Components/Button';
@@ -59,11 +60,22 @@ class ResultScreen extends React.Component {
     });
   };
 
+  backPage = () => {
+    const {exitPage} = this.props;
+    exitPage && exitPage();
+  };
+
+  onUpload = () => {
+    // Alert.alert('Hello I am Simple Alert');
+    const {changePage} = this.props;
+    changePage && changePage(1);
+  };
+
   render() {
     const {txtImageUrl, currentPage} = this.state;
     return currentPage === 0 ? (
       <View>
-        <Header title={'AI Skin Analysis'} />
+        <Header title={'AI Skin Analysis'} leftAction={this.backPage} />
         <ScrollView style={styles.container}>
           <View style={styles.subContainer}>
             <View style={styles.subContainer1}>
@@ -107,6 +119,7 @@ class ResultScreen extends React.Component {
                 label={'Upload'}
                 style={styles.buttonUpload}
                 disabled={true}
+                onPress={this.onUpload}
               />
             </View>
           </View>
