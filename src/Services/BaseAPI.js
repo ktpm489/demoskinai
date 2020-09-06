@@ -17,30 +17,40 @@ export default class BaseAPI {
     return this.postGateWay(type, REQUEST_TYPE.PUT, body);
   }
 
-  static async postUploadPhoto(uri) {
+  static async postUploadPhoto(uri, linkserver = '', email = '', apikey = '') {
     const promiseReturn = async () => {
+      console.log('eeee1.' + uri);
       return ImageResizer.createResizedImage(uri, 640, 640, 'JPEG', 100)
         .then((response) => {
           return RNFetchBlob.fs
             .readFile(response.path, 'base64')
             .then(async (base64) => {
-              const body = {base64};
-              return this.postGateWay(
-                'photo/upload-from-base64',
+              // console.log('base64'+ base64)
+              const body = {
+                image_base64: base64,
+                email: email,
+              };
+              let result = await this.postGateWay(
+                linkserver + '/api/userskin',
                 REQUEST_TYPE.POST,
                 body,
+                null,
+                apikey,
               );
+              return result;
             })
             .catch(() => {
               return '';
             });
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log('e' + e);
           return '';
         });
     };
     const responseImage = await promiseReturn();
-    return responseImage ? responseImage.imageUrl : '';
+    console.log('responseImage' + responseImage);
+    return responseImage;
   }
 
   static async checkApiProblem() {
@@ -51,7 +61,13 @@ export default class BaseAPI {
     return this.postGateWay(`user/${address}`, REQUEST_TYPE.GET);
   }
 
-  static async postGateWay(url, method = REQUEST_TYPE.GET, body, queryBody) {
+  static async postGateWay(
+    url,
+    method = REQUEST_TYPE.GET,
+    body,
+    queryBody,
+    apikey = '',
+  ) {
     const callApi = new Promise(async (resolve, reject) => {
       try {
         const params = {
@@ -59,6 +75,7 @@ export default class BaseAPI {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            apikey: apikey,
           },
         };
         if (body) {
@@ -68,14 +85,16 @@ export default class BaseAPI {
         if (queryBody) {
           queryStr = '?' + QueryString.stringify(queryBody);
         }
+        console.log('url + queryStr', url + queryStr);
         const response = await fetch(url + queryStr, params);
-        // console.log('response', response)
+        console.log('response', response);
         const responJson = await response.json();
         if (response.status === 200) {
           resolve(responJson);
         }
         resolve(null);
       } catch (error) {
+        console.log('error', error);
         reject(error);
       }
     });
@@ -83,7 +102,7 @@ export default class BaseAPI {
     const callRemove = new Promise(function (resolve, reject) {
       setTimeout(() => {
         return reject('OverTime');
-      }, 20000);
+      }, 200000);
     });
 
     return Promise.race([callApi, callRemove])

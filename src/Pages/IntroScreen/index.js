@@ -13,6 +13,7 @@ import Button from '../../Components/Button';
 import {width, height, isIphoneX, isNotchAndroid} from '../../Common/styles';
 import images from '../../Assets/Images';
 import BaseServices from '../../Common/services';
+import BaseAPI from '../../Services/BaseAPI';
 import CameraScreen from '../CameraScreen';
 
 class ResultScreen extends React.Component {
@@ -37,6 +38,7 @@ class ResultScreen extends React.Component {
         txtImageUrl: resImage.link,
         fileResponse: resImage.response,
         isChange: true,
+        isDisable: false,
       });
     }
   };
@@ -53,6 +55,7 @@ class ResultScreen extends React.Component {
     this.setState({
       txtImageUrl: res.uri,
       fileResponse: res,
+      isDisable: false,
     });
   };
 
@@ -67,10 +70,39 @@ class ResultScreen extends React.Component {
     exitPage && exitPage();
   };
 
-  onUpload = () => {
+  onUpload = async () => {
     // Alert.alert('Hello I am Simple Alert');
-    const {changePage} = this.props;
-    changePage && changePage(1);
+    try {
+      this.setState({isLoading: true});
+      let email = 'ktpm489@gmail.com';
+      let apikey =
+        'NWY0N2FkMjg4ZjFiYmIwYWViZDBkNDdhXzU2Nzg5MTBfSG5mMlJRcDhMbkNuWWhBQw==';
+      let linkserver = 'https://shrouded-brushlands-68077.herokuapp.com';
+      const {txtImageUrl} = this.state;
+      if (txtImageUrl) {
+        let data = await BaseAPI.postUploadPhoto(
+          txtImageUrl,
+          linkserver,
+          email,
+          apikey,
+        );
+        // console.log('data1' + data);
+        if (data) {
+          const {changePage} = this.props;
+          changePage && changePage(1);
+        } else {
+          Alert.alert('Please try again');
+        }
+      }
+
+      // const {changePage} = this.props;
+      // changePage && changePage(1);
+    } catch (e) {
+    } finally {
+      this.setState({
+        isLoading: false,
+      });
+    }
   };
 
   render() {
