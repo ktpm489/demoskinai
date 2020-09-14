@@ -50,6 +50,7 @@ class ResultScreen extends React.Component {
             <Result
               dataTransfer={this.props.transferData.facedata.specialConclusion}
               language={this.props.language}
+              special={true}
             />
           </View>
         </ScrollView>

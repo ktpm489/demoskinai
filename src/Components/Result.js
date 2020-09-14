@@ -29,8 +29,30 @@ const dataItemRender = (itemData = null, language = 'en') => {
   ) : null;
 };
 
+const dataSpecialItemRender = (itemData = null, language = 'en') => {
+  return itemData !== null ? (
+    <View style={styles.bottomSpecialContainer}>
+      {itemData.title ? (
+        <Text style={[styles.textContainer, styles.textTitleContainer]}>
+          {language === 'en' ? itemData.title.en : itemData.title.vi}
+        </Text>
+      ) : null}
+
+      {itemData.data !== undefined
+        ? language === 'en'
+          ? itemData.data.en.map((item, i) => {
+              return <Text style={styles.textDesContainer}>{item}</Text>;
+            })
+          : itemData.data.vi.map((item, i) => {
+              return <Text style={styles.textDesContainer}>{item}</Text>;
+            })
+        : null}
+    </View>
+  ) : null;
+};
+
 const LotsOfGreetings = (props) => {
-  const {dataTransfer, language} = props;
+  const {dataTransfer, language, special = false} = props;
   // console.log('dataTransfer1111', dataTransfer);
   // console.log('language', language, dataTransfer.title.en);
   return dataTransfer !== undefined ? (
@@ -47,9 +69,25 @@ const LotsOfGreetings = (props) => {
           </Text>
         </LinearGradient>
         {dataTransfer.data !== null
-          ? dataTransfer.data.map((item, i) => {
-              return dataItemRender(item, language);
-            })
+          ? special
+            ? dataTransfer.data.map((item, i) => {
+                return (
+                  <View
+                    style={{
+                      borderColor: 'red',
+                      width: '100%',
+                      borderBottomWidth: 1,
+                      marginTop : 10
+                    }}>
+                    {item.map((it1, i1) => {
+                      return dataSpecialItemRender(it1, language);
+                    })}
+                  </View>
+                );
+              })
+            : dataTransfer.data.map((item, i) => {
+                return dataItemRender(item, language);
+              })
           : null}
       </View>
     </View>
@@ -90,6 +128,15 @@ var styles = StyleSheet.create({
   bottomContainer: {
     borderBottomWidth: 1,
     borderColor: 'gray',
+    width: '100%',
+    // alignContent: 'center',
+    justifyContent: 'flex-start',
+    paddingBottom: 10,
+    // alignItems: 'center',
+  },
+  bottomSpecialContainer: {
+    // borderBottomWidth: 1,
+    // borderColor: 'gray',
     width: '100%',
     // alignContent: 'center',
     justifyContent: 'flex-start',
