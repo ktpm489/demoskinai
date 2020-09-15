@@ -7,7 +7,7 @@ const heighPercent = 0.5;
 const widthMargin = 0 / 100;
 const widthImage = 640;
 const heightImage = 640;
-const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / widthImage;
+const ratio = (MYWIDTH - width(5)) / widthImage;
 const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
 
 let drawSpotArr = [
@@ -1003,7 +1003,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: width(80),
+    width: '100%',
     justifyContent: 'space-between',
     alignSelf: 'center',
     paddingTop: height(2),
