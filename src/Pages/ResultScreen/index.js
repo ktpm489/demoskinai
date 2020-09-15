@@ -33,7 +33,10 @@ class ResultScreen extends React.Component {
             backgroundColor: 'transparent',
           }}>
           <View style={{position: 'relative', paddingBottom: 40}}>
-            <LoadImage />
+            <LoadImage
+              dataTransfer={this.props.transferData.facedata}
+              language={this.props.language}
+            />
             <Result
               dataTransfer={this.props.transferData.facedata.generalResult}
               language={this.props.language}

@@ -5,8 +5,8 @@ const MYWIDTH = Dimensions.get('window').width;
 const MYHEIGHT = Dimensions.get('window').height;
 const heighPercent = 0.5;
 const widthMargin = 0 / 100;
-const widthImage = 640;
-const heightImage = 640;
+const widthImage = 500;
+const heightImage = 500;
 const ratio = (MYWIDTH - MYWIDTH * (2 * widthMargin)) / widthImage;
 const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
 
@@ -779,222 +779,81 @@ const renderData = (data, color = 'red') => {
   });
 };
 
-class DisplayAnImage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSpotEnabled: false,
-      isMoleEnabled: false,
-      isBlackEnabled: false,
-      isAnceEnabled: false,
-      isPimpleEnabled: false,
-      drawSpotArrData: [],
-      drawMoleArrData: [],
-      drawBlackHeadArrData: [],
-      drawAcneArrData: [],
-      drawPimpleArrData: [],
-    };
-  }
-
-  componentDidMount() {
-    this.processGeneralConclusion();
-    this.processSpecialResult();
-  }
-
-  processGeneralConclusion = () => {
-    const {dataTransfer} = this.props;
-    let itemSkinMole = dataTransfer.generalConclusion.data.find((item) => {
-      return item.key === 'SkinMole';
-    });
-    this.setState({drawMoleArrData: itemSkinMole.drawArr});
-  };
-
-  processSpecialResult = () => {
-    let drawSpotArrDataInput = [];
-    let drawBlackHeadArrDataInput = [];
-    let drawAcneArrDataInput = [];
-    let drawPimpleArrDataInput = [];
-    const {dataTransfer} = this.props;
-    for (let i = 0; i < dataTransfer.specialResult.data.length; i++) {
-      let itemData = dataTransfer.specialResult.data[i];
-      for (let j = 0; j < itemData.data.length; j++) {
-        let eachData = itemData.data[j];
-        if (eachData.key === 'SkinBlackHeads') {
-          drawBlackHeadArrDataInput = eachData.drawArr;
-        } else if (eachData.key === 'SkinSpot') {
-          drawSpotArrDataInput = eachData.drawArr;
-        } else if (eachData.key === 'SkinPimple') {
-          drawPimpleArrDataInput = eachData.drawArr;
-        } else if (eachData.key === 'SkinAcne') {
-          drawAcneArrDataInput = eachData.drawArr;
-        }
-      }
-    }
-    // console.log('drawBlackHeadArrDataInput', drawBlackHeadArrDataInput);
-    // console.log('drawSpotArrDataInput', drawSpotArrDataInput);
-    // console.log('drawPimpleArrDataInput', drawPimpleArrDataInput);
-    // console.log('drawAcneArrDataInput', drawAcneArrDataInput);
-    this.setState({
-      drawSpotArrData: drawSpotArrDataInput,
-      drawBlackHeadArrData: drawBlackHeadArrDataInput,
-      drawAcneArrData: drawAcneArrDataInput,
-      drawPimpleArrData: drawPimpleArrDataInput,
-    });
-  };
-
+const DisplayAnImage = () => {
   // spot
-  toggleSpotSwitch = () => {
-    this.setState({isSpotEnabled: !this.state.isSpotEnabled});
-  };
+  const [isSpotEnabled, setSpotIsEnabled] = useState(false);
+  const toggleSpotSwitch = () =>
+    setSpotIsEnabled((previousState) => !previousState);
   // mole
-  toggleMoleSwitch = () => {
-    this.setState({isMoleEnabled: !this.state.isMoleEnabled});
-  };
+  const [isMoleEnabled, setMoleIsEnabled] = useState(false);
+  const toggleMoleSwitch = () =>
+    setMoleIsEnabled((previousState) => !previousState);
   // blackhead
-  toggleBlackSwitch = () => {
-    this.setState({isBlackEnabled: !this.state.isBlackEnabled});
-  };
+  const [isBlackEnabled, setBlackIsEnabled] = useState(false);
+  const toggleBlackSwitch = () =>
+    setBlackIsEnabled((previousState) => !previousState);
   // ance
-  toggleAnceSwitch = () => {
-    this.setState({
-      isAnceEnabled: !this.state.isAnceEnabled,
-    });
-  };
-  // pimple
-  togglePimpleSwitch = () => {
-    this.setState({
-      isPimpleEnabled: !this.state.isPimpleEnabled,
-    });
-  };
-
-  // SkinBlackHeads
-  // SkinMole (normal)
-  // SkinSpot
-  // SkinPimple
-  // SkinAcne
-
-  render() {
-    const {
-      isSpotEnabled,
-      isMoleEnabled,
-      isBlackEnabled,
-      isAnceEnabled,
-      isPimpleEnabled,
-      drawMoleArrData,
-      drawSpotArrData,
-      drawBlackHeadArrData,
-      drawAcneArrData,
-      drawPimpleArrData,
-    } = this.state;
-    const {dataTransfer, language} = this.props;
-    console.log(dataTransfer, language);
-    let isEN = language === 'en';
-    return (
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: dataTransfer.image_info.url
-                ? dataTransfer.image_info.url
-                : 'http://res.cloudinary.com/hobbg5cc2/image/upload/v1598702124/uploads/images/1598702122594.jpg',
-            }}
+  const [isAnceEnabled, setAnceIsEnabled] = useState(false);
+  const toggleAnceSwitch = () =>
+    setAnceIsEnabled((previousState) => !previousState);
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.logo}
+          source={{
+            uri:
+              'http://res.cloudinary.com/hobbg5cc2/image/upload/v1598702124/uploads/images/1598702122594.jpg',
+          }}
+        />
+        {isSpotEnabled ? renderData(drawSpotArr, 'orange') : null}
+        {isMoleEnabled ? renderData(drawMoleArr, 'red') : null}
+        {isBlackEnabled ? renderData(drawBlackHeadArr, 'pink') : null}
+        {isAnceEnabled ? renderData(drawAcneArr, 'green') : null}
+      </View>
+      <View style={styles.viewContainer}>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Spot</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'orange'}}
+            onValueChange={toggleSpotSwitch}
+            value={isSpotEnabled}
           />
-          {isSpotEnabled ? renderData(drawSpotArrData, 'orange') : null}
-          {isMoleEnabled ? renderData(drawMoleArrData, 'black') : null}
-          {isBlackEnabled ? renderData(drawBlackHeadArrData, 'pink') : null}
-          {isAnceEnabled ? renderData(drawAcneArrData, 'green') : null}
-          {isPimpleEnabled ? renderData(drawPimpleArrData, 'red') : null}
         </View>
-        <View style={styles.viewContainer}>
-          <View
-            style={[
-              styles.itemContainer,
-              drawSpotArrData.length === 0 && styles.disabledOpt,
-            ]}>
-            <Text style={styles.textContainer}>
-              {isEN ? 'Spot' : 'Đốm thâm nám'}
-            </Text>
-            <Switch
-              trackColor={{false: '#767577', true: 'orange'}}
-              onValueChange={this.toggleSpotSwitch}
-              value={isSpotEnabled}
-            />
-          </View>
-          <View
-            style={[
-              styles.itemContainer,
-              drawAcneArrData.length === 0 && styles.disabledOpt,
-            ]}>
-            <Text style={styles.textContainer}> {isEN ? 'Acne' : 'Mụn'}</Text>
-            <Switch
-              trackColor={{false: '#767577', true: 'green'}}
-              onValueChange={this.toggleAnceSwitch}
-              value={isAnceEnabled}
-            />
-          </View>
-        </View>
-        <View style={styles.viewContainer}>
-          <View
-            style={[
-              styles.itemContainer,
-              drawPimpleArrData.length === 0 && styles.disabledOpt,
-            ]}>
-            <Text style={styles.textContainer}>
-              {isEN ? 'Pimple' : 'Mụn Nhọt'}
-            </Text>
-            <Switch
-              trackColor={{false: '#767577', true: 'red'}}
-              onValueChange={this.togglePimpleSwitch}
-              value={isPimpleEnabled}
-            />
-          </View>
-          <View
-            style={[
-              styles.itemContainer,
-              drawBlackHeadArrData.length === 0 && styles.disabledOpt,
-            ]}>
-            <Text style={styles.textContainer}>
-              {isEN ? 'Blackhead' : 'Mụn Đầu Đen'}
-            </Text>
-            <Switch
-              trackColor={{false: '#767577', true: 'pink'}}
-              onValueChange={this.toggleBlackSwitch}
-              value={isBlackEnabled}
-            />
-          </View>
-        </View>
-        <View style={styles.viewContainer}>
-          <View
-            style={[
-              styles.itemContainer,
-              drawMoleArrData.length === 0 && styles.disabledOpt,
-            ]}>
-            <Text style={styles.textContainer}>
-              {isEN ? 'Mole' : 'Nốt ruồi'}
-            </Text>
-            <Switch
-              trackColor={{false: '#767577', true: 'black'}}
-              onValueChange={this.toggleMoleSwitch}
-              disabled={drawMoleArrData.length === 0}
-              value={isMoleEnabled}
-            />
-          </View>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Acne</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'green'}}
+            onValueChange={toggleAnceSwitch}
+            value={isAnceEnabled}
+          />
         </View>
       </View>
-    );
-  }
-}
+      <View style={styles.viewContainer}>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Pimple</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'red'}}
+            onValueChange={toggleMoleSwitch}
+            value={isMoleEnabled}
+          />
+        </View>
+        <View style={styles.itemContainer}>
+          <Text style={styles.textContainer}>Blackhead</Text>
+          <Switch
+            trackColor={{false: '#767577', true: 'pink'}}
+            onValueChange={toggleBlackSwitch}
+            value={isBlackEnabled}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   textContainer: {
     width: width(20),
-  },
-  disabledOpt: {
-    opacity: 0.3,
-  },
-  enableOpt: {
-    opacity: 1,
   },
   itemContainer: {
     flexDirection: 'row',
