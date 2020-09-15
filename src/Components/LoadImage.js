@@ -901,10 +901,10 @@ class DisplayAnImage extends React.Component {
             }}
           />
           {isSpotEnabled ? renderData(drawSpotArrData, 'orange') : null}
-          {isMoleEnabled ? renderData(drawMoleArrData, 'black') : null}
+          {isMoleEnabled ? renderData(drawMoleArrData, 'red') : null}
           {isBlackEnabled ? renderData(drawBlackHeadArrData, 'pink') : null}
-          {isAnceEnabled ? renderData(drawAcneArrData, 'green') : null}
-          {isPimpleEnabled ? renderData(drawPimpleArrData, 'red') : null}
+          {isAnceEnabled ? renderData(drawAcneArrData, 'yellow') : null}
+          {isPimpleEnabled ? renderData(drawPimpleArrData, 'green') : null}
         </View>
         <View style={styles.viewContainer}>
           <View
@@ -928,7 +928,7 @@ class DisplayAnImage extends React.Component {
             ]}>
             <Text style={styles.textContainer}> {isEN ? 'Acne' : 'Mụn'}</Text>
             <Switch
-              trackColor={{false: '#767577', true: 'green'}}
+              trackColor={{false: '#767577', true: 'yellow'}}
               onValueChange={this.toggleAnceSwitch}
               value={isAnceEnabled}
             />
@@ -944,7 +944,7 @@ class DisplayAnImage extends React.Component {
               {isEN ? 'Pimple' : 'Mụn Nhọt'}
             </Text>
             <Switch
-              trackColor={{false: '#767577', true: 'red'}}
+              trackColor={{false: '#767577', true: 'green'}}
               onValueChange={this.togglePimpleSwitch}
               value={isPimpleEnabled}
             />
@@ -974,7 +974,7 @@ class DisplayAnImage extends React.Component {
               {isEN ? 'Mole' : 'Nốt ruồi'}
             </Text>
             <Switch
-              trackColor={{false: '#767577', true: 'black'}}
+              trackColor={{false: '#767577', true: 'red'}}
               onValueChange={this.toggleMoleSwitch}
               disabled={drawMoleArrData.length === 0}
               value={isMoleEnabled}
