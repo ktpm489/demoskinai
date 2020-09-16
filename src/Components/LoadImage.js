@@ -7,8 +7,10 @@ const heighPercent = 0.5;
 const widthMargin = 0 / 100;
 const widthImage = 640;
 const heightImage = 640;
-const ratio = (MYWIDTH - width(5)) / widthImage;
-const ratioHeight = (MYHEIGHT * heighPercent) / heightImage;
+const ratio = (width(100) - width(2)) / widthImage;
+// const ratio = MYWIDTH / widthImage;
+console.log('ratio', ratio, MYWIDTH , ratio * 175);
+const ratioHeight = MYWIDTH / heightImage;
 
 let drawSpotArr = [
   {
@@ -919,6 +921,7 @@ class DisplayAnImage extends React.Component {
               trackColor={{false: '#767577', true: 'orange'}}
               onValueChange={this.toggleSpotSwitch}
               value={isSpotEnabled}
+              disabled={drawSpotArrData.length === 0}
             />
           </View>
           <View
@@ -931,6 +934,7 @@ class DisplayAnImage extends React.Component {
               trackColor={{false: '#767577', true: 'yellow'}}
               onValueChange={this.toggleAnceSwitch}
               value={isAnceEnabled}
+              disabled={drawAcneArrData.length === 0}
             />
           </View>
         </View>
@@ -947,6 +951,7 @@ class DisplayAnImage extends React.Component {
               trackColor={{false: '#767577', true: 'green'}}
               onValueChange={this.togglePimpleSwitch}
               value={isPimpleEnabled}
+              disabled={drawPimpleArrData.length === 0}
             />
           </View>
           <View
@@ -961,6 +966,7 @@ class DisplayAnImage extends React.Component {
               trackColor={{false: '#767577', true: 'pink'}}
               onValueChange={this.toggleBlackSwitch}
               value={isBlackEnabled}
+              disabled={drawBlackHeadArrData.length === 0}
             />
           </View>
         </View>
@@ -1009,7 +1015,7 @@ const styles = StyleSheet.create({
     paddingTop: height(2),
   },
   container: {
-    marginHorizontal: MYWIDTH * widthMargin,
+    // marginHorizontal: MYWIDTH * widthMargin,
     // padding : 0,
     flex: 1,
     position: 'relative',
@@ -1025,7 +1031,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: MYHEIGHT * heighPercent,
+    height: width(100),
   },
   rectangle: {
     borderWidth: 1,

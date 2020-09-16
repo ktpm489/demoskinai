@@ -10,6 +10,7 @@ import {
 import Result from '../../Components/Result';
 import LoadImage from '../../Components/LoadImage';
 import Header from '../../Container/CoreHeader/index';
+import {width} from '../../Common/styles';
 
 class ResultScreen extends React.Component {
   backAction = () => {
@@ -27,7 +28,7 @@ class ResultScreen extends React.Component {
         <ScrollView
           style={{
             position: 'relative',
-            padding: 10,
+            padding: width(1),
             height: '90%',
             paddingBottom: 0,
             backgroundColor: 'transparent',
